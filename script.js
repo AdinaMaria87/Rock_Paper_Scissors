@@ -1,3 +1,8 @@
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+const btn3 = document.getElementById("btn3");
+const result = document.getElementById("result");
+
 
 function getComputerChoice() {
     let choice = ["Rock", "Paper", "Scissors"];
@@ -6,58 +11,72 @@ function getComputerChoice() {
 
 let scorePlayer = 0;
 let scoreComputer = 0;
+let scoreText = "";
 
-function playRound(playerSelection, computerSelection) {
-    
+function playRound(playerSelection) {
+    let parag = document.createElement("p");
+    let computerSelection = getComputerChoice().toLowerCase();
 
     if(playerSelection == "rock" && computerSelection == "paper") {
         scoreComputer++;
-        console.log("You lose! Paper beat rock!" + " Your score is:" + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "You lost! Paper beat rock!" + " Your score is:" + scorePlayer + " and computer score is: " + scoreComputer;
         
     } 
     else if (playerSelection == "rock" && computerSelection == "scissors") {
         scorePlayer++;
-        console.log("You win! Rock beats scissors!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "You win! Rock beats scissors!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
     else if(playerSelection == "paper" && computerSelection == "rock") {
         scorePlayer++;
-        console.log("You win! Paper beats rock!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
-       
+        parag.textContent = "You win! Paper beats rock!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
     else if (playerSelection == "paper" && computerSelection == "scissors") {
         scoreComputer++;
-        console.log("You lost! Scissors beat paper!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "You lost! Scissors beat paper!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
     else if (playerSelection == "scissors" && computerSelection == "paper") {
         scorePlayer = scorePlayer++;
-        console.log("You win! Scissors beat paper" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "You win! Scissors beat paper" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
     else if (playerSelection == "scissors" && computerSelection == "rock") {
         scoreComputer++;
-        console.log("You lost! Rock beats scissors!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "You lost! Rock beats scissors!" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
     else {
-        console.log("It's equality" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer);
+        parag.textContent = "It's equality" + " Your score is:" + " " + scorePlayer + " and computer score is: " + scoreComputer;
     }
+
+    result.appendChild(parag);
+    
+    if(scorePlayer == 5 || scoreComputer == 5) {
+        game();
+    }
+    
 
 }
 
+btn1.addEventListener("click", () => {
+   playRound("rock");
+});
+
+btn2.addEventListener("click", () => {
+    playRound("paper")
+});
+btn3.addEventListener("click", () => {
+    playRound("scissors");
+ });
 
 function game() {
-    
-    for(let i=1; i<=5; i++) {
-        let playerSelection = prompt("Make your choice: rock, paper or scissors?").toLocaleLowerCase();
-        let computerSelection = getComputerChoice().toLocaleLowerCase();
-        playRound(playerSelection, computerSelection);
-        }
+    let paragFinal = document.createElement("p");
+
     if(scorePlayer < scoreComputer) {
-         console.log("You lost!")
+         paragFinal.textContent = "YOU LOST!";
         }
     else if(scorePlayer > scoreComputer) {
-        console.log("You win!");
+        paragFinal.textContent = "YOU WIN!";
     }
     else {
-        console.log("It's equality!");
+        paragFinal.textContent= "It's equality!";
     }
+    result.appendChild(paragFinal);
 }
-game();
